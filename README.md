@@ -16,19 +16,19 @@ composer install
 ```bash
 cp .env.example .env
 ```
-## Cập nhật file .env với thông tin phù hợp 
+## Update file .env
 ```env
-APP_NAME="Tên ứng dụng"
+APP_NAME="Name_app"
 APP_URL=http://localhost
 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=tên_database
-DB_USERNAME=tên_user
-DB_PASSWORD=mật_khẩu
+DB_USERNAME=user_name
+DB_PASSWORD=password
 ```
-## Tạo khóa ứng dụng
+## Generate a new application key
 ```bash
 php artisan key:generate
 ```
