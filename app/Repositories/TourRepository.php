@@ -9,7 +9,7 @@ class TourRepository implements IBaseRepository
 {
     public function getAll()
     {
-        return Tour::all();
+        return Tour::paginate(10);
     }
 
     public function findById($id)

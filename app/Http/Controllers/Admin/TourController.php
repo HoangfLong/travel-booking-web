@@ -68,14 +68,14 @@ class TourController extends Controller
     public function restore($id): RedirectResponse
     {
         $this->tourService->restoreTour($id);
-        return redirect()->route('admin.tours.index')->with('success', 'Tour restored successfully');
+        return redirect()->route('admin.tours.trash')->with('success', 'Tour restored successfully');
     }
 
     // Force delete
     public function forceDelete($id): RedirectResponse
     {
         $this->tourService->forceDeleteTour($id);
-        return redirect()->route('admin.tours.index')->with('success', 'Tour permanently deleted successfully');
+        return redirect()->route('admin.tours.trash')->with('success', 'Tour permanently deleted successfully');
     }
 
     // Get all trashed
