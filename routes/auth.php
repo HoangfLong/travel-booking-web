@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\TourController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -90,6 +91,11 @@ Route::middleware('auth')->group(function () {
             Route::get('/trash', [UserController::class, 'getAllTrashed'])->name('admin.users.trash');
             Route::post('/{id}/restore', [UserController::class, 'restore'])->name('admin.users.restore');
             Route::delete('/{id}/force-delete', [UserController::class, 'forceDelete'])->name('admin.users.forceDelete');
+        });
+
+        Route::prefix('/bookings')->group(function() {
+            Route::get('/index', [BookingController::class, 'index'])->name('admin.bookings.index');
+            Route::get('/{id}/show', [BookingController::class, 'show'])->name('admin.bookings.show');
         });
 
         Route::resource('/tours', TourController::class)->names([
