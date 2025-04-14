@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Services\BookingService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 class BookingController extends Controller
 {
     protected $bookingService;
@@ -17,18 +17,17 @@ class BookingController extends Controller
         $this->bookingService = $bookingService;
     }
 
-    public function index() : View
+    public function index()
     {
-        $userId = Auth::id();
-        $bookings = $this->bookingService->getUserBookings($userId);
-        
-        return view('bookings.index', compact('bookings'));
+        $bookings = $this->bookingService->getAllBooking();
+
+        return view('admin.bookings.index', compact('bookings'));
     }
 
-    public function show($id) : View
+    public function show($id)
     {
         $booking = $this->bookingService->getBookingById($id);
 
-        return view('bookings.show', compact('booking'));
+        return view('admin.bookings.show', compact('booking'));
     }
 }

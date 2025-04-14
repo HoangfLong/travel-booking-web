@@ -15,6 +15,11 @@ class BookingService
         $this->bookingRepository = $bookingRepository;
     }
 
+    public function getAllBooking()
+    {
+        return $this->bookingRepository->getAll();
+    }
+
     public function createBooking($userId, $tourId, $guestCount, $status = 'pending')
     {
         $tour = Tour::findOrFail($tourId);
@@ -41,7 +46,7 @@ class BookingService
         return $booking;
     }
 
-    public function getBooking($id)
+    public function getBookingById($id)
     {
         return $this->bookingRepository->findById($id);
     }
