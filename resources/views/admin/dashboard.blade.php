@@ -18,9 +18,14 @@
         </div>
 
         <!-- Nút điều hướng đến trang quản lý tour -->
-        <div class="col-md-4">
+        <div class="col-md-1">
             <a href="{{ route('admin.tours.index') }}" class="btn btn-primary btn-block">
                 <i class="fas fa-route"></i> Manage Tours
+            </a>
+        </div>
+        <div class="col-md-1">
+            <a href="{{ route('admin.users.index') }}" class="btn btn-primary btn-block">
+                <i class="fas fa-route"></i> Manage User
             </a>
         </div>
     </div>

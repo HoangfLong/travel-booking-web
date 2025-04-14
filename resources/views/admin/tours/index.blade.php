@@ -78,5 +78,8 @@
             </table>
         </div>
     </div>
+    <div class="d-flex justify-content-center mt-4" data-aos-delay="600">
+        {{ $tours->links('components.nav-link') }}
+    </div>
 </div>
 @endsection
