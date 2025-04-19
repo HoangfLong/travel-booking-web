@@ -12,17 +12,25 @@
                 <span class="info-box-icon"><i class="fas fa-dollar-sign"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Total Revenue</span>
-                    <span class="info-box-number">${{ number_format($totalRevenue, 2) }}</span>
+                    <span class="info-box-number">VND {{ number_format($totalRevenue, 2) }}</span>
                 </div>
             </div>
         </div>
 
         <!-- Nút điều hướng đến trang quản lý tour -->
-        <div class="col-md-4">
-            <a href="{{ route('admin.tours.index') }}" class="btn btn-primary btn-block">
-                <i class="fas fa-route"></i> Manage Tours
-            </a>
-        </div>
+        <div class="col-md-8 mt-3">
+            <div class="d-flex justify-content-start gap-3 flex-wrap">
+                <a href="{{ route('admin.tours.index') }}" class="btn btn-primary">
+                    <i class="fas fa-route"></i> Manage Tours
+                </a>
+                <a href="{{ route('admin.users.index') }}" class="btn btn-primary">
+                    <i class="fas fa-users"></i> Manage Users
+                </a>
+                <a href="{{ route('admin.bookings.index') }}" class="btn btn-primary">
+                    <i class="fas fa-book"></i> Manage Bookings
+                </a>
+            </div>
+        </div>        
     </div>
 
     <!-- Biểu đồ doanh thu theo tháng -->
@@ -56,7 +64,7 @@
                             @foreach ($monthlyRevenue as $data)
                                 <tr>
                                     <td>{{ DateTime::createFromFormat('!m', $data['month'])->format('F') }}</td>
-                                    <td>${{ number_format($data['revenue'], 2) }}</td>
+                                    <td>VND {{ number_format($data['revenue'], 2) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

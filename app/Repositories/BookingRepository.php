@@ -9,7 +9,7 @@ class BookingRepository implements IBaseRepository
 {
     public function getAll()
     {
-        return null;
+        return Booking::paginate(10);
     }
 
     public function findById($id)
@@ -36,6 +36,8 @@ class BookingRepository implements IBaseRepository
 
     public function getByUserId($userId)
     {
-        return Booking::where('user_id', $userId)->with('tour')->paginate(5);
+        return Booking::where('user_id', $userId)
+                        ->with('tour')
+                        ->paginate(10);
     }
 }
