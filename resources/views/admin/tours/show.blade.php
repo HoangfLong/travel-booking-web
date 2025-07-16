@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                         <th>Price</th>
-                        <td>${{ number_format($tour->price, 2) }}</td>
+                        <td>{{ number_format($tour->price, 2) }} VND</td>
                     </tr>
                     <tr>
                         <th>Images</th>

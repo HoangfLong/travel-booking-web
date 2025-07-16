@@ -56,7 +56,7 @@
                         <td>{{ $tour->destinations }}</td>
                         <td>{{ $tour->start_time }}</td>
                         <td>{{ $tour->end_time }}</td>
-                        <td>${{ number_format($tour->price, 2) }}</td>
+                        <td>{{ number_format($tour->price, 2) }} VND</td>
                         <td>
                             <a href="{{ route('admin.tours.show', $tour->id) }}" class="btn btn-info btn-sm">
                                 <i class="fas fa-eye"></i> View
