@@ -45,7 +45,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var list<string>
      */
-    
+
     /**
      * Get the attributes that should be cast.
      *
@@ -62,5 +62,23 @@ class User extends Authenticatable implements MustVerifyEmail
     public function tours()
     {
         return $this->hasMany(Tour::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class,'role_user');
+    }
+
+    public function likedTours()
+    {
+        // Bảng trung gian là 'likes', các khóa ngoại sẽ được suy ra
+        return $this->belongsToMany(Tour::class, 'likes', 'user_id', 'tour_id');
+    }
+
+    // Thêm helper
+    public function hasRole(string $role): bool
+    {
+        return $this->roles()->where('name', $role)->exists();
+        //exists() check role có tồn tại
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-     public function register(Request $request) 
+    public function register(Request $request) 
     {
         $validator = Validator::make($request->all(),[
             'first_name' => ['required', 'string', 'max:255'],
@@ -38,6 +39,11 @@ class AuthController extends Controller
             'date_of_birth' => $request->date_of_birth,
             'password' => Hash::make($request->password),
         ]);
+
+        $defaultRole = Role::where('name', 'user')->first();
+        if($defaultRole) {
+            $user->roles()->attach($defaultRole->id);
+        }
 
         $tokenName = $request->first_name . ' ' . $request->last_name;
 
@@ -69,7 +75,7 @@ class AuthController extends Controller
         $token = $user->createToken($request->email);
 
         return response()->json([
-            'user' => $user,
+            // 'user' => $user,
             'access_token' => $token->plainTextToken,
             'token_type' => 'Bearer',
         ]);

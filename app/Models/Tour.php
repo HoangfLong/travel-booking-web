@@ -32,13 +32,21 @@ class Tour extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function likes()
+    // public function likes()
+    // {
+    //     return $this->hasMany(Like::class, 'tour_id');
+    // }
+
+    public function likedByUsers()
     {
-        return $this->hasMany(Like::class, 'tour_id');
+        // Bảng trung gian là 'likes', các khóa ngoại sẽ được suy ra
+        return $this->belongsToMany(User::class, 'likes', 'tour_id', 'user_id');
     }
 
-    public function isLikedByUser($user_id)
+    public function bookings()
     {
-        return $this->likes()->where('user_id', $user_id)->exists();
+        return $this->hasMany(Booking::class, 'tour_id');   
     }
+    // SELECT * FORM tours;
+    // SELECT * FORM bookings WHERE tour_id (1223);
 }

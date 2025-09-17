@@ -6,6 +6,8 @@ use App\Services\TourService;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TourRequest;
+use App\Models\Tour;
+use Illuminate\Support\Facades\DB;
 
 class TourController extends Controller
 {
@@ -20,14 +22,18 @@ class TourController extends Controller
     {
         $tours = $this->tourService->getAllTours();
 
-        // return response()->json([
+        // $tours = DB::table('tours')->where('id',9)->first(); 
+
+        // $tours = Tour::with('bookings')->take(2)->get();
+
+        return response()->json([
+            'status' => 'success',
+            'tours' => $tours
+        ]);
+        // return [
         //     // 'status' => 'success',
-        //     'tours' => $tours
-        // ]);
-        return [
-            // 'status' => 'success',
-            $tours,
-        ];
+        //     $tours,
+        // ];
     }
 
     public function show($id)
@@ -36,67 +42,6 @@ class TourController extends Controller
         return response()->json([
             'status' => 'success',
             'tours' => $tour
-        ]);
-    }
-
-    public function store(TourRequest $request)
-    {
-        $tour = $this->tourService->createTour($request->validated());
-        return response()->json([
-            'status' => 'success',
-            'tours' => $tour
-        ]);
-    }
-
-    // Update
-    public function update(TourRequest $request, $id)
-    {
-        $tour = $this->tourService->updateTour($id, $request->validated());
-          return response()->json([
-            'status' => 'success',
-            'tours' => $tour
-        ]);
-    }
-
-    // Soft delete
-    public function destroy($id)
-    {
-        $tour = $this->tourService->deleteTour($id);
-        return response()->json([
-            'status' => 'success',
-            'tours' => $tour,
-            'message' => 'Tour deleted successfully'
-        ]);
-    }
-    
-    // Restore delete
-    public function restore($id)
-    {
-        $this->tourService->restoreTour($id);
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Tour restore successfully'
-        ]);
-    }
-
-    // Force delete
-    public function forceDelete($id)
-    {
-        $this->tourService->forceDeleteTour($id);
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Tour permanently deleted successfully'
-        ]);
-    }
-
-    // Get all trashed
-    public function getAllTrashed()
-    {
-        $tours = $this->tourService->getAllToursWithTrashed();
-        return response()->json([
-            'status' => 'success',
-            'tours' => $tours,
-            'message' => "all tours trashed",
         ]);
     }
 }
