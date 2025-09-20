@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendVerificationEmail;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -46,10 +47,11 @@ class AuthController extends Controller
             $user->roles()->attach($defaultRole->id);
         }
 
-        $tokenName = $request->first_name . ' ' . $request->last_name;
+        // $tokenName = $request->first_name . ' ' . $request->last_name;
 
-        $token = $user->createToken($tokenName);
-        event(new Registered($user));
+        // $token = $user->createToken($tokenName);
+
+        SendVerificationEmail::dispatch($user);
 
         return response()->json([
             // 'user' => $user,

@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Admin;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Services\BookingService;
+use Illuminate\Support\Facades\Auth;
+
 class BookingController extends Controller
 {
     protected $bookingService;
@@ -15,7 +17,8 @@ class BookingController extends Controller
 
     public function index()
     {
-        $bookings = $this->bookingService->getAllBooking();
+        $userId = Auth::id();
+        $bookings = $this->bookingService->getUserBookings($userId);
 
         return response()->json([
             'status' => 200,
