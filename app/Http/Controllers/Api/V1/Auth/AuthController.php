@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendVerificationEmail;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -45,15 +47,18 @@ class AuthController extends Controller
             $user->roles()->attach($defaultRole->id);
         }
 
-        $tokenName = $request->first_name . ' ' . $request->last_name;
+        // $tokenName = $request->first_name . ' ' . $request->last_name;
 
-        $token = $user->createToken($tokenName);
+        // $token = $user->createToken($tokenName);
+
+        SendVerificationEmail::dispatch($user);
 
         return response()->json([
-            'user' => $user,
-            'access_token' => $token->plainTextToken,
-            'token_type' => 'Bearer',
-        ]);
+            // 'user' => $user,
+            // 'access_token' => $token->plainTextToken,
+            // 'token_type' => 'Bearer',
+            'message' => 'User registered. Please verify your email.'
+        ], 201);
     }
 
     public function login(Request $request)
