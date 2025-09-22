@@ -56,10 +56,6 @@ The Travel Booking Platform is a comprehensive web application designed to provi
     * Provides a **RESTful API** to support potential future integrations with mobile applications or a separate Single Page Application (SPA).
     * API endpoints are secured with **Laravel Sanctum** and **role-based authentication**.
 
-* **Customer-Facing Features:**
-    * **Advanced Search & Filtering:** Users can effortlessly search for tours by keywords and filter results by **location** and **price**.
-    * **Social Login:** **Laravel Socialite** is integrated for quick registration and login using **Google** and **Facebook** accounts.
-
 * **Admin Dashboard:**
     * An intuitive administration panel to track monthly/yearly revenue.
     * Efficiently manage all users, tours, and bookings.
