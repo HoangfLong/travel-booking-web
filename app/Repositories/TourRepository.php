@@ -4,51 +4,86 @@ namespace App\Repositories;
 
 use App\Interfaces\IBaseRepository;
 use App\Models\Tour;
+use Illuminate\Support\Facades\Cache;
 
 class TourRepository implements IBaseRepository
 {
     public function getAll()
     {
-        return Tour::paginate(10);
+        return Cache::remember('tours.paginated', 60, function () {
+            return Tour::paginate(10);
+        });
     }
 
     public function findById($id)
     {
-        return Tour::findOrFail($id);
+        return Cache::remember("tour.{$id}", 60, function () use ($id) {
+            return Tour::findOrFail($id);
+        });
+
     }
 
     public function create(array $data)
     {
-        return Tour::create($data);
+        $tour = Tour::create($data);
+
+        // clear cache
+        Cache::forget('tours.paginated');
+
+        return $tour;
     }
+
 
     public function update($id, array $data)
     {
         $tour = Tour::findOrFail($id);
         $tour->update($data);
+
+        Cache::forget("tour.{$id}");
+        Cache::forget('tours.paginated');
+
         return $tour;
     }
 
     public function delete($id)
     {
         $tour = Tour::find($id);
-        return $tour ? $tour->delete() : false;
+        if ($tour) {
+            $tour->delete();
+            Cache::forget("tour.{$id}");
+            Cache::forget('tours.paginated');
+            return true;
+        }
+        return false;
     }
 
     public function restore($id)
     {
         $tour = Tour::withTrashed()->find($id);
-        return $tour ? $tour->restore() : false;
+        if ($tour) {
+            $tour->restore();
+            Cache::forget('tours.paginated');
+            return true;
+        }
+        return false;
     }
 
     public function forceDelete($id)
     {
         $tour = Tour::withTrashed()->find($id);
-        return $tour ? $tour->forceDelete() : false;
+        if ($tour) {
+            $tour->forceDelete();
+            Cache::forget("tour.{$id}");
+            Cache::forget('tours.paginated');
+            return true;
+        }
+        return false;
     }
 
     public function getAllWithTrashed()
     {
-        return Tour::onlyTrashed()->get();
+        return Cache::remember('tours.trashed', 60, function () {
+            return Tour::onlyTrashed()->get();
+        });
     }
 }

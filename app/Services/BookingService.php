@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\ProcessPaymentJob;
 use App\Repositories\BookingRepository;
 use App\Models\Tour;
 use Exception;
@@ -37,11 +38,12 @@ class BookingService
             'start_date' => $tour->start_time,
             'end_date' => $tour->end_time,
             'total_amount' => $totalAmount,
-            'status' => 'confirmed',
         ]);
 
         // Giảm số ghế trống sau khi đặt chỗ
         $tour->decrement('available_seats', $guestCount);
+
+        ProcessPaymentJob::dispatch($booking);
 
         return $booking;
     }
