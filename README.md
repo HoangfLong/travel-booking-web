@@ -11,7 +11,7 @@
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/HoangfLong/travel-booking-web/ci-cd.yml?style=flat-square&logo=github)](https://github.com/HoangfLong/travel-booking-web/actions)
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-[![Version](https://img.shields.io/badge/version-1.0.0-green.svg?style=flat-square)](#)
+[![Version](https://img.shields.io/badge/version-1.1.0-green.svg?style=flat-square)](#)
 [![Contributors](https://img.shields.io/github/contributors/HoangfLong/travel-booking-web?style=flat-square)](https://github.com/HoangfLong/travel-booking-web/graphs/contributors)
 ![First Commit](https://img.shields.io/github/created-at/HoangfLong/travel-booking-web?style=flat-square&label=First%20Commit)
 ![Last Commit](https://img.shields.io/github/last-commit/HoangfLong/travel-booking-web?style=flat-square)
