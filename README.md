@@ -184,9 +184,6 @@ GET    /api/v1/tours/trashed        # List all soft-deleted tours
 POST   /api/v1/tours/restore/{id}   # Restore a soft-deleted tour
 DELETE /api/v1/tours/force/{id}     # Permanently delete tour
 
-# Additional Operations
-GET    /api/v1/tours/all            # List all tours (including soft-deleted)
-GET    /api/v1/tours/search         # Search and filter tours
 ```
 
 Example Response for Trash Items:
