@@ -1,15 +1,16 @@
-# Travel Booking Platform - An Online Tour Booking System
-
+# Travel Booking Platform - An Online Tour Booking 
 <div align="center">
 
+[![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
 [![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com/)
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
-[![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
 [![Stripe](https://img.shields.io/badge/Stripe-008CFF?style=for-the-badge&logo=stripe&logoColor=white)](https://stripe.com/)
+<!-- [![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/) -->
+
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/HoangfLong/travel-booking-web/ci-cd.yml?style=flat-square&logo=github)](https://github.com/HoangfLong/travel-booking-web/actions)
-[![License](https://img.shields.io/github/license/HoangfLong/travel-booking-web?style=flat-square)](https://github.com/HoangfLong/travel-booking-web/blob/main/LICENSE)
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 [![Version](https://img.shields.io/badge/version-1.0.0-green.svg?style=flat-square)](#)
 [![Contributors](https://img.shields.io/github/contributors/HoangfLong/travel-booking-web?style=flat-square)](https://github.com/HoangfLong/travel-booking-web/graphs/contributors)
 ![First Commit](https://img.shields.io/github/created-at/HoangfLong/travel-booking-web?style=flat-square&label=First%20Commit)
@@ -23,7 +24,7 @@ The Travel Booking Platform is a comprehensive web application designed to provi
 
 ## 📋 Table of Contents
 
-- [Travel Booking Platform - An Online Tour Booking System](#travel-booking-platform---an-online-tour-booking-system)
+- [Travel Booking Platform - An Online Tour Booking](#travel-booking-platform---an-online-tour-booking)
   - [📋 Table of Contents](#-table-of-contents)
   - [✨ Key Features](#-key-features)
   - [🚀 Technologies Used](#-technologies-used)
@@ -31,9 +32,9 @@ The Travel Booking Platform is a comprehensive web application designed to provi
     - [Key Components](#key-components)
     - [Design Patterns](#design-patterns)
   - [📚 API Documentation](#-api-documentation)
-    - [Authentication Endpoints](#authentication-endpoints)
+    - [Authentication \& User Management](#authentication--user-management)
     - [Tour Management](#tour-management)
-    - [Booking \& Payments](#booking--payments)
+    - [Booking \& Payment Management](#booking--payment-management)
     - [Authentication](#authentication)
   - [🚀 Quick Start Guide](#-quick-start-guide)
     - [System Requirements](#system-requirements)
@@ -48,8 +49,8 @@ The Travel Booking Platform is a comprehensive web application designed to provi
 ## ✨ Key Features
 
 * **Tour & User Management:**
-    * Full **CRUD (Create, Read, Update, Delete)** functionality for tours, users, and bookings.
-    * **Soft delete** is implemented for tours and users, allowing data to be easily restored without permanent loss.
+    * Full **CRUD** functionality for tours, users.
+    * **Soft Delete** (move to trash), **Hard Delete** (permanent removal), and **Restore** (recover from trash)
 
 * **RESTful API:**
     * Provides a **RESTful API** to support potential future integrations with mobile applications or a separate Single Page Application (SPA).
@@ -89,30 +90,30 @@ The Travel Booking Platform is a comprehensive web application designed to provi
 ```
 BE/
 ├── app/                   # Core application code
-│   ├── Http/             # HTTP layer (Controllers, Middleware, Requests)
-│   ├── Models/           # Eloquent models
-│   ├── Services/         # Business logic services
-│   ├── Repositories/     # Data access layer
-│   ├── Interfaces/       # Repository interfaces
-│   ├── Jobs/             # Background jobs and queue processing
-│   └── Mail/             # Mail templates and notifications
-├── config/               # Configuration files
+│   ├── Http/              # HTTP layer (Controllers, Middleware, Requests)
+│   ├── Models/            # Eloquent models
+│   ├── Services/          # Business logic services
+│   ├── Repositories/      # Data access layer
+│   ├── Interfaces/        # Repository interfaces
+│   ├── Jobs/              # Background jobs and queue processing
+│   └── Mail/              # Mail templates and notifications
+├── config/                # Configuration files
 ├── database/            
-│   ├── migrations/       # Database migrations
-│   ├── factories/        # Model factories for testing
-│   └── seeders/         # Database seeders
+│   ├── migrations/        # Database migrations
+│   ├── factories/         # Model factories for testing
+│   └── seeders/           # Database seeders
 ├── resources/
-│   ├── views/           # Blade templates
-│   ├── js/              # JavaScript files
-│   └── css/             # CSS files
+│   ├── views/             # Blade templates
+│   ├── js/                # JavaScript files
+│   └── css/               # CSS files
 ├── routes/              
-│   ├── api.php          # API routes
-│   └── web.php          # Web routes
-├── storage/             # Uploaded files, logs, cache
-├── tests/               # Test files
-│   ├── Unit/            # Unit tests
-│   └── Feature/         # Feature tests
-└── vendor/              # Composer dependencies
+│   ├── api.php            # API routes
+│   └── web.php            # Web routes
+├── storage/               # Uploaded files, logs, cache
+├── tests/                 # Test files
+│   ├── Unit/              # Unit tests
+│   └── Feature/           # Feature tests
+└── vendor/                # Composer dependencies
 ```
 
 ### Key Components
@@ -156,31 +157,81 @@ BE/
 
 ## 📚 API Documentation
 
-### Authentication Endpoints
+### Authentication & User Management
 
-```
-POST   /api/v1/register     # Register new user
-POST   /api/v1/login        # User login
-POST   /api/v1/logout       # User logout
-GET    /api/v1/user        # Get authenticated user
+```bash
+# Authentication
+POST   /api/v1/register                # Register new user
+POST   /api/v1/login                   # User login
+POST   /api/v1/logout                  # User logout (requires auth)
+GET    /api/v1/verify-email/{id}/{hash}# Verify email address
+POST   /api/v1/email/resend           # Resend verification email
+
+# User Profile (requires auth + user role)
+GET    /api/v1/user/profile           # Get user profile
+PUT    /api/v1/user/profile           # Update user profile
+DELETE /api/v1/user/profile           # Delete user account
 ```
 
 ### Tour Management
 
 ```
-GET    /api/v1/tours            # List all tours
-POST   /api/v1/tours/create     # Create new tour
-GET    /api/v1/tours/{id}       # Get tour details
-PUT    /api/v1/tours/{id}       # Update tour
-DELETE /api/v1/tours/{id}       # Delete tour (soft delete)
+# Basic CRUD Operations
+GET    /api/v1/tours                # List all active tours
+POST   /api/v1/tours/create         # Create new tour
+GET    /api/v1/tours/{id}           # Get tour details
+PUT    /api/v1/tours/{id}           # Update tour
+DELETE /api/v1/tours/{id}           # Soft delete tour
+
+# Trash Management
+GET    /api/v1/tours/trashed        # List all soft-deleted tours
+POST   /api/v1/tours/restore/{id}   # Restore a soft-deleted tour
+DELETE /api/v1/tours/force/{id}     # Permanently delete tour
+
+# Additional Operations
+GET    /api/v1/tours/all            # List all tours (including soft-deleted)
+GET    /api/v1/tours/search         # Search and filter tours
 ```
 
-### Booking & Payments
-
+Example Response for Trash Items:
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": 1,
+            "title": "Mountain Trek Tour",
+            "deleted_at": "2025-09-15 10:30:00",
+            "can_restore": true
+        }
+    ],
+    "message": "Trashed tours retrieved successfully"
+}
 ```
-POST   /api/v1/bookings         # Create booking
-GET    /api/v1/bookings/{id}    # Get booking details
-POST   /api/v1/payments/create  # Initialize payment
+
+### Booking & Payment Management
+
+```bash
+# User Bookings (requires auth + user role)
+GET    /api/v1/user/bookings          # List user's bookings
+GET    /api/v1/user/bookings/{id}     # Get booking details
+
+# Admin Booking Management (requires auth + admin role)
+GET    /api/v1/admin/bookings         # List all bookings
+GET    /api/v1/admin/bookings/{id}    # Get booking details
+
+# Payment Processing (requires auth)
+POST   /api/v1/payments/checkout/{tourId} # Initialize payment
+POST   /api/v1/payments/success          # Handle successful payment
+POST   /api/v1/payments/cancel/{tourId}  # Handle cancelled payment
+
+### Admin Dashboard
+
+```bash
+# Admin Analytics (requires auth + admin role)
+GET    /api/v1/admin/dashboard        # Get dashboard statistics
+GET    /api/v1/admin/users/management # List all users
+GET    /api/v1/admin/users/management/{id} # Get user details
 ```
 
 ### Authentication
@@ -235,10 +286,12 @@ Authorization: Bearer <your_token_here>
     DB_USERNAME=your_username
     DB_PASSWORD=your_password
 
+    QUEUE_CONNECTION=redis
+
     REDIS_HOST=127.0.0.1
     REDIS_PASSWORD=null
     REDIS_PORT=6379
-
+    
     STRIPE_KEY=your_stripe_public_key
     STRIPE_SECRET=your_stripe_secret_key
     ```
@@ -248,7 +301,7 @@ Authorization: Bearer <your_token_here>
     php artisan key:generate   # Generate app encryption key
     php artisan storage:link   # Create storage symlink
     php artisan migrate       # Run database migrations
-    php artisan db:seed       # Seed the database with demo data
+?      # Seed the database with demo data
     ```
 
 6. **Start Services:**
@@ -256,7 +309,6 @@ Authorization: Bearer <your_token_here>
     # In separate terminal windows:
     php artisan serve         # Start development server
     php artisan queue:work redis # Start queue worker
-    npm run watch            # Watch for asset changes (optional)
     ```
 
 ## 🗺️ Development Roadmap & Architecture

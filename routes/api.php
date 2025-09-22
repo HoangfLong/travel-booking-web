@@ -46,6 +46,9 @@ Route::prefix('v1')->group(function () {
             Route::post('tours/create', [TourController::class, 'store']);
             Route::post('tours/update/{id}', [TourController::class, 'update']);
             Route::delete('/tours/{id}', [TourController::class, 'destroy']);
+
+            // Trash Management
+            Route::get('/tours/force/{id}', [TourController::class, 'forceDelete']);
             Route::get('/tours/trashed', [TourController::class, 'getAllTrashed']);
             Route::get('/tours/restore/{id}', [TourController::class, 'restore']);
 

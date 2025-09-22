@@ -51,7 +51,7 @@ class PaymentController extends Controller
         return response()->json([
             'success' => true,
             'booking_id' => $bookingId,
-            'message' => 'Payment successful! Booking created.'
+            'message' => 'Payment successful! Check email.'
         ]);
     }
 

@@ -2,26 +2,27 @@
 
 namespace App\Mail;
 
+use App\Models\Booking;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class VerifyEmailMail extends Mailable
+class PaymentSuccessMail extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $booking;
 
     /**
      * Create a new message instance.
      */
-    public $verificationUrl;
-
-    public function __construct(string $verificationUrl)
+    public function __construct(Booking $booking)
     {
-        $this->verificationUrl = $verificationUrl;
+        $this->booking = $booking;
+       
     }
 
     /**
@@ -31,7 +32,7 @@ class VerifyEmailMail extends Mailable
     {
         return new Envelope(
             from: new Address('no-reply@gmail.com', 'travel-booking-app'),
-            subject: 'Verify Email Mail',
+            subject: 'Payment and tour booking confirmed successfully.',
         );
     }
 
@@ -41,9 +42,9 @@ class VerifyEmailMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.verify-email',
+            view: 'emails.payment-success',
             with: [
-                'url' => $this->verificationUrl, // Truyền biến vào view
+                'booking' => $this->booking,
             ],
         );
     }
